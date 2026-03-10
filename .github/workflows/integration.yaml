@@ -1,0 +1,40 @@
+name: Integration - Test Build & Code
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-code:
+    runs-on: ubuntu-slim
+    permissions:
+      contents: read
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm run test
+
+  test-container-build:
+      runs-on: ubuntu-slim
+      permissions:
+        contents: read
+
+      steps:
+        - name: Code Checkout
+          uses: actions/checkout@v4
+
+        - name: Install Dependencies
+          run: npm ci
+
+        - name: Build Image
+          run: docker build -t test-image:latest .
+
+        - name: Remove Image
+          run: docker image prune -a
