@@ -15,9 +15,9 @@ export const users = pgTable('users', {
     enum: ['ADMIN', 'USER'],
   }).default('USER'),
   password: text().notNull(),
-  created_at: timestamp('created_at', { mode: 'date' }).notNull()
-    .default(sql`now
-    ()`),
+  created_at: timestamp('created_at', { mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   updated_at: timestamp('updated_at', { mode: 'date' }).notNull(),
 });
 
@@ -38,8 +38,9 @@ export const userRelations = relations(users, ({ many }) => {
 export const images = pgTable('images', {
   id: bigint({ mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
   url: text().notNull(),
-  created_at: timestamp({ mode: 'date' }).notNull().default(sql`now
-    ()`),
+  created_at: timestamp({ mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   updated_at: timestamp({ mode: 'date' }).notNull(),
 });
 
@@ -60,9 +61,9 @@ export const storagePlaces = pgTable('storage_places', {
   cupboard_label: text().notNull(),
   rack_label: text().notNull(),
   bucket_label: text().notNull(),
-  created_at: timestamp('created_at', { mode: 'date' }).notNull()
-    .default(sql`now
-    ()`),
+  created_at: timestamp('created_at', { mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   updated_at: timestamp('updated_at', { mode: 'date' }).notNull(),
 });
 
@@ -84,9 +85,9 @@ export const itemCodes = pgTable('item_codes', {
   id: bigint({ mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
   code: text().notNull(),
   label: text().notNull(),
-  created_at: timestamp('created_at', { mode: 'date' }).notNull()
-    .default(sql`now
-    ()`),
+  created_at: timestamp('created_at', { mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   updated_at: timestamp('updated_at', { mode: 'date' }).notNull(),
 });
 
@@ -131,8 +132,9 @@ export const items = pgTable('items', {
   status: text({
     enum: ['IN_STORE', 'BORROWED', 'DAMAGED', 'MISSING'],
   }).default('IN_STORE'),
-  created_at: timestamp({ mode: 'date' }).notNull().default(sql`now
-    ()`),
+  created_at: timestamp({ mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   updated_at: timestamp({ mode: 'date' }).notNull(),
 });
 
@@ -166,8 +168,9 @@ export const borrowers = pgTable('borrowers', {
   id: bigint({ mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
   nic: text().notNull().unique(),
   name: text().notNull(),
-  created_at: timestamp({ mode: 'date' }).notNull().default(sql`now
-    ()`),
+  created_at: timestamp({ mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   updated_at: timestamp({ mode: 'date' }).notNull(),
 });
 
@@ -193,15 +196,17 @@ export const borrowings = pgTable('borrowings', {
       onDelete: 'restrict',
       onUpdate: 'cascade',
     }),
-  borrowed_date: timestamp({ mode: 'date' }).notNull().default(sql`now
-    ()`),
+  borrowed_date: timestamp({ mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   expected_return_date: timestamp({ mode: 'date' }).notNull(),
   status: text({
     enum: ['PENDING', 'OVERDUE', 'RETURNED'],
   }),
   returned_date: timestamp({ mode: 'date' }),
-  created_at: timestamp({ mode: 'date' }).notNull().default(sql`now
-    ()`),
+  created_at: timestamp({ mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   updated_at: timestamp({ mode: 'date' }).notNull(),
 });
 
@@ -241,8 +246,9 @@ export const borrowedItems = pgTable('borrowed_items', {
   return_condition: text({
     enum: ['OK', 'DAMAGED'],
   }),
-  created_at: timestamp({ mode: 'date' }).notNull().default(sql`now
-    ()`),
+  created_at: timestamp({ mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   updated_at: timestamp({ mode: 'date' }).notNull(),
 });
 
@@ -276,8 +282,9 @@ export const activityLogs = pgTable('activity_log', {
       onUpdate: 'cascade',
     }),
   activity: text().notNull(),
-  created_at: timestamp({ mode: 'date' }).notNull().default(sql`now
-    ()`),
+  created_at: timestamp({ mode: 'date' })
+    .notNull()
+    .default(sql`now()`),
   updated_at: timestamp({ mode: 'date' }).notNull(),
 });
 
