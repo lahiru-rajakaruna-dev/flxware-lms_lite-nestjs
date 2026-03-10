@@ -96,6 +96,9 @@ importers:
       prettier:
         specifier: ^3.4.2
         version: 3.8.1
+      serverless:
+        specifier: link:@types/neondatabase/serverless
+        version: link:@types/neondatabase/serverless
       source-map-support:
         specifier: ^0.5.21
         version: 0.5.21
