@@ -1,4 +1,6 @@
+import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import path from 'node:path';
 import { NodeCacheService } from './node_cache.cache.service';
 
 describe('CacheService', () => {
@@ -6,6 +8,12 @@ describe('CacheService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        ConfigModule.forRoot({
+          envFilePath: path.resolve(process.cwd(), '.env'),
+          isGlobal: true,
+        }),
+      ],
       providers: [NodeCacheService],
     }).compile();
 
