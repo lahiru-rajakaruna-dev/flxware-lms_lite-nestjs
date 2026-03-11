@@ -2,6 +2,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import path from 'node:path';
 import { CacheModule } from '../cache/cache.module';
+import { SessionModule } from '../session/session.module';
 import { SessionMiddleware } from './session.middleware';
 import { v4 as _uuid } from 'uuid';
 
@@ -20,6 +21,7 @@ describe('SessionMiddleware', () => {
           isGlobal: true,
         }),
         CacheModule,
+        SessionModule,
       ],
       providers: [SessionMiddleware],
     }).compile();
