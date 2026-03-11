@@ -24,6 +24,7 @@ describe('AppController', () => {
         LoggerModule,
         MiddlewareModule,
         CacheModule,
+        SessionModule,
       ],
       controllers: [AppController],
       providers: [AppService],
