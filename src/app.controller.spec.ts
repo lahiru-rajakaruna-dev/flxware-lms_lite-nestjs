@@ -6,6 +6,10 @@ import { AppService } from './app.service';
 import { CacheModule } from './cache/cache.module';
 import { LoggerModule } from './logger/logger.module';
 import { MiddlewareModule } from './middleware/middleware.module';
+import { v4 as _uuid } from 'uuid';
+import { SessionModule } from './session/session.module';
+
+jest.mock('uuid', () => ({ _uuid: () => Uint8Array.from('mocked') }));
 
 describe('AppController', () => {
   let appController: AppController;
