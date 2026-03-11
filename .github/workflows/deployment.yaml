@@ -28,7 +28,7 @@ jobs:
         run: pnpm install
 
       - name: Build Image
-        run: docker build -t ghcr.io/ims-lite:v0.1
+        run: docker build -t ghcr.io/ims-lite:v0.1 .
 
       - name: Login to Github Container Registery
         run: "echo ${{secrets.GITHUB_TOKEN}} | docker login ghcr.io -u ${{github.actor}} --password-stdin"
