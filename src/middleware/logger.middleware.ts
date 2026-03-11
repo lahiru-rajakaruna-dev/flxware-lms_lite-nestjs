@@ -1,8 +1,8 @@
 import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
-import { global } from '../../global';
+import { e } from '../../global';
 import { TOKEN__LOGGER_FACTORY } from '../logger/factory.logger';
 import { type ILoggerService } from '../logger/interface.logger';
-import NestRequest = global.NestRequest;
+import NestRequest = e.NestRequest;
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
