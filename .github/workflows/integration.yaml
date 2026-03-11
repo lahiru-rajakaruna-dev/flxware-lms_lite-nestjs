@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+env:
+  CACHE_SERVICE: ${{vars.CACHE_SERVICE}}
+  LOGGER_SERVICE: ${{vars.LOGGER_SERVICE}}
+
 jobs:
   test-code:
     runs-on: ubuntu-latest
@@ -25,22 +29,22 @@ jobs:
         run: npm run test
 
   test-container-build:
-      runs-on: ubuntu-latest
-      permissions:
-        contents: read
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
-      steps:
-        - name: Code Checkout
-          uses: actions/checkout@v4
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
 
-        - name: Install PNPM
-          run: npm install -g pnpm@latest-10
+      - name: Install PNPM
+        run: npm install -g pnpm@latest-10
 
-        - name: Install Dependencies
-          run: pnpm install
+      - name: Install Dependencies
+        run: pnpm install
 
-        - name: Build Image
-          run: docker build -t test-image:latest .
+      - name: Build Image
+        run: docker build -t test-image:latest .
 
-        - name: Remove Image
-          run: docker image prune -a
+      - name: Remove Image
+        run: docker image prune -a
