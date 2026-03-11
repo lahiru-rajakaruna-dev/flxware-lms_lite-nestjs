@@ -1,6 +1,7 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { type Response } from 'express';
+import { AuthService } from './auth.service';
 import { type IAuthService } from './interface.auth';
 import * as JWT from 'jsonwebtoken';
 
@@ -9,7 +10,7 @@ export class AuthController {
   private readonly authService: IAuthService;
   private readonly configService: ConfigService;
 
-  constructor(authService: IAuthService, configService: ConfigService) {
+  constructor(authService: AuthService, configService: ConfigService) {
     this.authService = authService;
     this.configService = configService;
   }
