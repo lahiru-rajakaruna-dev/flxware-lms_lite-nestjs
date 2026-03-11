@@ -5,7 +5,7 @@ import { IUserRepository } from './IUserRepository';
 @Injectable()
 export class UserRepository implements IUserRepository {
   createUser(data: TInsertUser): Promise<TSelectUser> {
-    return Promise.resolve(undefined);
+    return Promise.resolve({} as TSelectUser);
   }
 
   deleteUser(id: number): Promise<boolean> {
@@ -13,10 +13,10 @@ export class UserRepository implements IUserRepository {
   }
 
   getUser(nic: string, filters: Partial<TSelectUser>): Promise<TSelectUser> {
-    return Promise.resolve(undefined);
+    return Promise.resolve({} as TSelectUser);
   }
 
   updateUser(id: number, updates: TUpdateUser): Promise<TSelectUser> {
-    return Promise.resolve(undefined);
+    return Promise.resolve({} as TSelectUser);
   }
 }
