@@ -1,48 +1,36 @@
-import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { TSelectUser } from '../../drizzle/schema';
-import { global } from '../../global';
-import NestRequest = global.NestRequest;
+import { e } from '../../global';
+import NestRequest = e.NestRequest;
 import * as JWT from 'jsonwebtoken';
-import { TOKEN__CACHE_FACTORY } from '../cache/factory.cache';
-import { type ICacheService } from '../cache/interface.cache';
+import { ISessionService } from '../session/interface.session.service';
+import { SessionService } from '../session/session.service';
 
 @Injectable()
 export class SessionMiddleware implements NestMiddleware {
-  private readonly cacheService: ICacheService;
+  private readonly sessionService: ISessionService;
+  private readonly configService: ConfigService;
 
-  constructor(@Inject(TOKEN__CACHE_FACTORY) cacheService: ICacheService) {
-    this.cacheService = cacheService;
+  constructor(sessionService: SessionService, configService: ConfigService) {
+    this.sessionService = sessionService;
+    this.configService = configService;
   }
 
   public use(req: NestRequest, res: Request, next: (error?: any) => void): any {
-    const token = req.cookies['authorization'];
+    const sessionKey = req.cookies['sessionKey'];
 
-    if (!token) {
-      throw new SessionError('Token not found');
+    if (!sessionKey) {
+      throw new SessionError('Key not found');
     }
 
-    const decodedJWT = JWT.decode(token, {
-      json: true,
-      complete: true,
-    });
-
-    if (!decodedJWT || !decodedJWT.payload) {
-      throw new SessionError('Invalid token');
-    }
-
-    const sessionToken = decodedJWT.payload as string;
-
-    if (!sessionToken) {
-      throw new SessionError('Empty payload');
-    }
-
-    const user = this.cacheService.get(sessionToken) as TSelectUser | undefined;
+    const user = this.sessionService.getSession(sessionKey);
 
     if (!user) {
       throw new SessionError('Session expired');
     }
 
-    req.user = user;
+    req.user = user as TSelectUser;
 
     return next();
   }
