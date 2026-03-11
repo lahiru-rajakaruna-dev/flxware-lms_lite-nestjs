@@ -11,6 +11,7 @@ import { SessionMiddleware } from './middleware/session.middleware';
 import { AuthModule } from './auth/auth.module';
 import { SessionModule } from './session/session.module';
 import { RepositoryModule } from './repository/repository.module';
+import { OrmModule } from './orm/orm.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { RepositoryModule } from './repository/repository.module';
     AuthModule,
     SessionModule,
     RepositoryModule,
+    OrmModule,
   ],
   controllers: [AppController],
   providers: [AppService],
