@@ -5,6 +5,9 @@ on:
     types: [ closed ]
     branches:
       - production
+  push:
+    branches:
+      - production
 
 jobs:
   bulid-image:
