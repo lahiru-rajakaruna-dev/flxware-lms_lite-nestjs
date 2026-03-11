@@ -9,7 +9,9 @@ RUN pnpm run build
 FROM node:20-slim
 WORKDIR /app
 RUN npm install -g pnpm@latest-10
-COPY --from=BUILD /app /app
+COPY --from=BUILD /app/dist /app/dist
+COPY --from=BUILD /app/node_modules /app/node_modules
+COPY package.json pnpm-lock.yaml ./
 RUN ls -la
 
 CMD ["pnpm","start"]
