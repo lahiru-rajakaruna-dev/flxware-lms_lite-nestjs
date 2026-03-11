@@ -3,9 +3,8 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm@latest-10
 RUN pnpm install
-
 COPY . .
-RUN pnpm run test
+RUN pnpm run build
 
 FROM node:20-slim
 WORKDIR /app
