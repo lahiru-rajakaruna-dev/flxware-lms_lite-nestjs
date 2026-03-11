@@ -1,6 +1,10 @@
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
+import { v4 as _uuid } from 'uuid';
+import { AuthService } from './auth.service';
+
+jest.mock('uuid', () => ({ _uuid: () => Uint8Array.from('mocked') }));
 
 describe('AuthController', () => {
   let controller: AuthController;
