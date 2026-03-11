@@ -9,6 +9,8 @@ env:
   CACHE_SERVICE: ${{vars.CACHE_SERVICE}}
   LOGGER_SERVICE: ${{vars.LOGGER_SERVICE}}
   JWT_SECRET_KEY: ${{vars.JWT_SECRET_KEY}}
+  ORM_SERVICE: ${{vars.ORM_SERVICE}}
+  DATABASE_TYPE: ${{vars.DATABASE_TYPE}}
 
 jobs:
   test-code:
@@ -33,6 +35,7 @@ jobs:
   test-container-build:
     runs-on: ubuntu-latest
     environment: CICD
+    needs: [ test-code ]
     permissions:
       contents: read
 
