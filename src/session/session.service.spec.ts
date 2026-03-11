@@ -1,6 +1,6 @@
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CacheModule } from '../cache/cache.module';
+import { SessionModule } from './session.module';
 import { SessionService } from './session.service';
 
 describe('SessionService', () => {
@@ -8,7 +8,7 @@ describe('SessionService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [CacheModule, ConfigModule],
+      imports: [ConfigModule, SessionModule],
       providers: [SessionService],
     }).compile();
 
