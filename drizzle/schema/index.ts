@@ -13,7 +13,9 @@ export const users = pgTable('users', {
   name: text().notNull(),
   role: text({
     enum: ['ADMIN', 'USER'],
-  }).default('USER'),
+  })
+    .default('USER')
+    .notNull(),
   password: text().notNull(),
   created_at: timestamp('created_at', { mode: 'date' })
     .notNull()
