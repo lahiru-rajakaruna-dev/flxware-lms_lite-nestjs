@@ -1,0 +1,34 @@
+name: Deployment - Build & deploy
+
+on:
+  pull_request:
+    types: [ closed ]
+    branches:
+      - production
+
+jobs:
+  bulid-image:
+    runs-on: ubuntu-latest
+    environment: CICD
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Clone Code
+        uses: actions/checkout@v4
+
+      - name: Install PNPM
+        run: npm i -g pnpm@latest
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build Image
+        run: docker build -t ghcr.io/ims-lite:v0.1
+
+      - name: Login to Github Container Registery
+        run: "echo ${{secrets.GITHUB_TOKEN}} | docker login ghcr.io -u ${{github.actor}} --password-stdin"
+
+      - name: Push Image to the Registery
+        run: docker push ghcr.io/lahiru-rajarkaruna-dev/ims-lite:v0.1
