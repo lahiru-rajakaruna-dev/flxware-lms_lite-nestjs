@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as JWT from 'jsonwebtoken';
-import type {
-  TInsertUser,
-  TSelectUser,
-  TUpdateUser,
-} from '../../drizzle/schema';
+import { IUserRepository } from '../repository/user/IUserRepository';
+import { UserRepository } from '../repository/user/user.repository';
 import { type ISessionService } from '../session/interface.session.service';
+import { SessionService } from '../session/session.service';
 import { type IAuthService } from './interface.auth';
 
 @Injectable()
@@ -16,8 +14,8 @@ export class AuthService implements IAuthService {
   private readonly configService: ConfigService;
 
   constructor(
-    sessionService: ISessionService,
-    userRepository: IUserRepository,
+    sessionService: SessionService,
+    userRepository: UserRepository,
     configService: ConfigService,
   ) {
     this.sessionService = sessionService;
@@ -50,11 +48,4 @@ export class AuthenticationError extends Error {
   constructor(message: string) {
     super(message);
   }
-}
-
-interface IUserRepository {
-  getUser(nic: string, filters: Partial<TSelectUser>): Promise<TSelectUser>;
-  updateUser(id: number, updates: TUpdateUser): Promise<TSelectUser>;
-  deleteUser(id: number): Promise<boolean>;
-  createUser(data: TInsertUser): Promise<TSelectUser>;
 }
