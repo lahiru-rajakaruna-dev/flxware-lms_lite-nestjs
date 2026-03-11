@@ -8,10 +8,12 @@ on:
 env:
   CACHE_SERVICE: ${{vars.CACHE_SERVICE}}
   LOGGER_SERVICE: ${{vars.LOGGER_SERVICE}}
+  JWT_SECRET_KEY: ${{vars.JWT_SECRET_KEY}}
 
 jobs:
   test-code:
     runs-on: ubuntu-latest
+    environment: CICD
     permissions:
       contents: read
 
@@ -30,6 +32,7 @@ jobs:
 
   test-container-build:
     runs-on: ubuntu-latest
+    environment: CICD
     permissions:
       contents: read
 
