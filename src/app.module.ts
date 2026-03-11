@@ -8,6 +8,8 @@ import { AuthMiddleware } from './middleware/auth.middleware';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { MiddlewareModule } from './middleware/middleware.module';
 import { SessionMiddleware } from './middleware/session.middleware';
+import { AuthModule } from './auth/auth.module';
+import { SessionModule } from './session/session.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { SessionMiddleware } from './middleware/session.middleware';
     LoggerModule,
     MiddlewareModule,
     ConfigModule.forRoot(),
+    AuthModule,
+    SessionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
