@@ -1,5 +1,8 @@
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import path from 'node:path';
+import { RepositoryModule } from '../repository/repository.module';
+import { SessionModule } from '../session/session.module';
 import { AuthController } from './auth.controller';
 import { v4 as _uuid } from 'uuid';
 import { AuthService } from './auth.service';
@@ -11,7 +14,15 @@ describe('AuthController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigService],
+      imports: [
+        ConfigModule.forRoot({
+          envFilePath: path.resolve(process.cwd(), '.env'),
+          isGlobal: true,
+        }),
+        SessionModule,
+        RepositoryModule,
+      ],
+      providers: [AuthService],
       controllers: [AuthController],
     }).compile();
 
